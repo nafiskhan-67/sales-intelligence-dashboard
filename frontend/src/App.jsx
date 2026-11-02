@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useState } from "react";
 import {
   LayoutDashboard,
@@ -32,6 +31,24 @@ import {
   getDataQuality,
   getAccountIntegration,
 } from "./services/api";
+
+/* ---------- Design tokens (look only) ---------- */
+const pageBg =
+  "min-h-screen flex bg-gradient-to-br from-slate-200 via-slate-100 to-blue-100 text-slate-800";
+
+// frosted white panel, big rounded corners, soft shadow
+const panel =
+  "bg-white/70 backdrop-blur-xl border border-white rounded-[28px] shadow-[0_10px_40px_-15px_rgba(15,23,42,0.18)]";
+
+// inner soft tile
+const tile = "bg-white rounded-2xl shadow-[0_4px_16px_-8px_rgba(15,23,42,0.15)]";
+
+// round icon button
+const roundBtn =
+  "w-10 h-10 rounded-full bg-white/80 border border-white shadow-sm flex items-center justify-center text-slate-600 hover:bg-white";
+
+const selectCls =
+  "w-full bg-white border border-white shadow-sm rounded-full px-4 py-2.5 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-slate-900/20";
 
 function App() {
   const [summary, setSummary] = useState(null);
@@ -94,7 +111,7 @@ function App() {
       maximumFractionDigits: 0,
     }).format(value || 0);
 
-  const statusColors = ["#10b981", "#3b82f6", "#f59e0b"];
+  const statusColors = ["#0f172a", "#64748b", "#cbd5e1"];
   const slaColors = ["#10b981", "#f59e0b", "#ef4444"];
 
   const cards = summary
@@ -103,67 +120,59 @@ function App() {
         title: "Total Leads",
         value: summary.total_leads,
         icon: Users,
-        color: "bg-blue-50 text-blue-600",
+        color: "bg-slate-900 text-white",
       },
       {
         title: "Won Revenue",
         value: formatCurrency(summary.won_revenue),
         icon: IndianRupee,
-        color: "bg-green-50 text-green-600",
+        color: "bg-slate-900 text-white",
       },
       {
         title: "Open Pipeline",
         value: formatCurrency(summary.open_pipeline_value),
         icon: TrendingUp,
-        color: "bg-purple-50 text-purple-600",
+        color: "bg-slate-900 text-white",
       },
       {
         title: "Win Rate",
         value: `${summary.win_rate}%`,
         icon: BriefcaseBusiness,
-        color: "bg-orange-50 text-orange-600",
+        color: "bg-slate-900 text-white",
       },
     ]
     : [];
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-200 via-slate-100 to-blue-100">
         <p className="text-slate-500">Loading dashboard...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex">
+    <div className={pageBg}>
 
       {/* Sidebar */}
-      <aside className="w-64 bg-slate-950 text-white hidden md:flex flex-col p-5">
-        <h1 className="text-xl font-bold mb-10">
-          Sales<span className="text-blue-400">IQ</span>
+      <aside className="w-64 hidden md:flex flex-col p-5 m-4 mr-0 rounded-[28px] bg-white/70 backdrop-blur-xl border border-white shadow-[0_10px_40px_-15px_rgba(15,23,42,0.18)]">
+        <h1 className="text-xl font-bold mb-10 text-slate-900">
+          Sales<span className="text-slate-400">IQ</span>
         </h1>
 
-        <p className="text-xs text-slate-500 uppercase mb-3">
+        <p className="text-xs text-slate-400 uppercase mb-3">
           Main Menu
         </p>
 
-        <div className="flex items-center gap-3 bg-blue-600 p-3 rounded-lg">
+        <div className="flex items-center gap-3 bg-slate-900 text-white px-4 py-3 rounded-full shadow-lg">
           <LayoutDashboard size={19} />
           <span className="text-sm font-medium">Dashboard</span>
         </div>
 
-        <div className="flex items-center gap-3 p-3 mt-2 text-slate-400">
-          <Users size={19} />
-          <span className="text-sm">Sales Overview</span>
-        </div>
-
-        <div className="flex items-center gap-3 p-3 text-slate-400">
-          <BriefcaseBusiness size={19} />
-          <span className="text-sm">Operations</span>
-        </div>
-
-        <div className="mt-auto border-t border-slate-800 pt-5 text-sm text-slate-400 flex items-center gap-3">
-          <CircleHelp size={18} />
+        <div className="mt-auto border-t border-slate-200 pt-5 text-sm text-slate-500 flex items-center gap-3">
+          <span className={`${roundBtn} w-9 h-9`}>
+            <CircleHelp size={17} />
+          </span>
           Help & Support
         </div>
       </aside>
@@ -172,9 +181,9 @@ function App() {
       <main className="flex-1 min-w-0">
 
         {/* Topbar */}
-        <header className="bg-white border-b border-slate-200 px-5 md:px-8 py-4 flex justify-between items-center">
+        <header className="px-5 md:px-8 py-5 flex justify-between items-center">
           <div>
-            <h2 className="text-xl font-bold text-slate-800">
+            <h2 className="text-2xl font-bold text-slate-900">
               Dashboard
             </h2>
             <p className="text-sm text-slate-500">
@@ -182,37 +191,39 @@ function App() {
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => {
                 setLoading(true);
                 loadDashboard();
               }}
-              className="flex items-center gap-2 text-sm text-slate-600 hover:text-blue-600"
+              className="flex items-center gap-2 text-sm text-slate-700 bg-white/80 border border-white shadow-sm rounded-full px-4 h-10 hover:bg-white"
             >
-              <RefreshCw size={17} />
+              <RefreshCw size={16} />
               <span className="hidden sm:inline">Refresh</span>
             </button>
 
-            <Bell size={19} className="text-slate-500" />
+            <span className={roundBtn}>
+              <Bell size={18} />
+            </span>
 
-            <div className="w-9 h-9 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-semibold">
+            <div className="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center font-semibold shadow-md">
               NK
             </div>
           </div>
         </header>
 
-        <div className="p-5 md:p-8 space-y-7">
+        <div className="px-5 md:px-8 pb-8 space-y-6">
 
           {error && (
-            <div className="bg-red-50 text-red-600 p-4 rounded-lg text-sm">
+            <div className="bg-red-50 text-red-600 p-4 rounded-2xl text-sm border border-red-100">
               {error}
             </div>
           )}
 
           {/* Page Heading */}
           <div>
-            <h2 className="text-2xl font-bold text-slate-800">
+            <h2 className="text-2xl font-bold text-slate-900">
               Business Overview
             </h2>
             <p className="text-sm text-slate-500 mt-1">
@@ -221,17 +232,17 @@ function App() {
           </div>
 
           {/* Filters */}
-          <div className="bg-white border border-slate-200 rounded-xl p-5 flex flex-col sm:flex-row gap-4 sm:items-end">
+          <div className={`${panel} p-5 flex flex-col sm:flex-row gap-4 sm:items-end`}>
 
             <div className="w-full sm:w-56">
-              <label className="block text-sm font-medium text-slate-600 mb-2">
+              <label className="block text-sm font-medium text-slate-600 mb-2 ml-2">
                 Region
               </label>
 
               <select
                 value={region}
                 onChange={(e) => setRegion(e.target.value)}
-                className="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm text-slate-700 outline-none focus:border-blue-500"
+                className={selectCls}
               >
                 <option value="All">All Regions</option>
                 <option value="North">North</option>
@@ -242,14 +253,14 @@ function App() {
             </div>
 
             <div className="w-full sm:w-56">
-              <label className="block text-sm font-medium text-slate-600 mb-2">
+              <label className="block text-sm font-medium text-slate-600 mb-2 ml-2">
                 Month
               </label>
 
               <select
                 value={month}
                 onChange={(e) => setMonth(e.target.value)}
-                className="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm text-slate-700 outline-none focus:border-blue-500"
+                className={selectCls}
               >
                 <option value="All">All Months</option>
                 <option value="2026-01">January 2026</option>
@@ -268,7 +279,7 @@ function App() {
                 setRegion("All");
                 setMonth("All");
               }}
-              className="text-sm text-blue-600 hover:text-blue-700 font-medium py-2.5"
+              className="text-sm text-white bg-slate-900 hover:bg-slate-700 font-medium px-5 py-2.5 rounded-full shadow-md"
             >
               Reset Filters
             </button>
@@ -282,19 +293,19 @@ function App() {
               return (
                 <div
                   key={card.title}
-                  className="bg-white rounded-xl border border-slate-200 p-5"
+                  className={`${panel} p-5`}
                 >
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-slate-500">
                       {card.title}
                     </p>
 
-                    <div className={`p-2 rounded-lg ${card.color}`}>
-                      <Icon size={20} />
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-md ${card.color}`}>
+                      <Icon size={19} />
                     </div>
                   </div>
 
-                  <h3 className="text-2xl font-bold text-slate-800 mt-4">
+                  <h3 className="text-2xl font-bold text-slate-900 mt-4">
                     {card.value}
                   </h3>
                 </div>
@@ -304,9 +315,9 @@ function App() {
 
           {/* Data Quality */}
           {dataQuality && (
-            <div className="bg-white border border-slate-200 rounded-xl p-5">
+            <div className={`${panel} p-6`}>
               <div className="mb-5">
-                <h3 className="font-semibold text-slate-800">
+                <h3 className="font-semibold text-slate-900">
                   Data Quality & Integration
                 </h3>
                 <p className="text-sm text-slate-500 mt-1">
@@ -315,28 +326,28 @@ function App() {
               </div>
 
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-slate-50 rounded-lg p-4">
+                <div className={`${tile} p-4`}>
                   <p className="text-sm text-slate-500">CRM Leads</p>
-                  <h3 className="text-2xl font-bold text-slate-800 mt-2">
+                  <h3 className="text-2xl font-bold text-slate-900 mt-2">
                     {dataQuality.total_leads}
                   </h3>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
+                <div className={`${tile} p-4`}>
                   <p className="text-sm text-slate-500">Operations Projects</p>
-                  <h3 className="text-2xl font-bold text-slate-800 mt-2">
+                  <h3 className="text-2xl font-bold text-slate-900 mt-2">
                     {dataQuality.total_projects}
                   </h3>
                 </div>
 
-                <div className="bg-green-50 rounded-lg p-4">
+                <div className="bg-green-50 border border-green-100 rounded-2xl p-4">
                   <p className="text-sm text-green-700">Matched Accounts</p>
                   <h3 className="text-2xl font-bold text-green-700 mt-2">
                     {dataQuality.matched_accounts}
                   </h3>
                 </div>
 
-                <div className="bg-amber-50 rounded-lg p-4">
+                <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4">
                   <p className="text-sm text-amber-700">Unmatched Accounts</p>
                   <h3 className="text-2xl font-bold text-amber-700 mt-2">
                     {dataQuality.unmatched_count}
@@ -345,7 +356,7 @@ function App() {
               </div>
 
               {dataQuality.unmatched_count > 0 && (
-                <div className="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-4">
+                <div className="mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
                   <p className="text-sm font-semibold text-amber-800">
                     Unmatched account IDs
                   </p>
@@ -358,9 +369,9 @@ function App() {
           )}
 
           {/* Business Insights */}
-          <div className="bg-white border border-slate-200 rounded-xl p-5">
+          <div className={`${panel} p-6`}>
             <div className="mb-5">
-              <h3 className="font-semibold text-slate-800">
+              <h3 className="font-semibold text-slate-900">
                 Business Insights
               </h3>
               <p className="text-sm text-slate-500 mt-1">
@@ -374,15 +385,15 @@ function App() {
                 {insights.map((item, index) => (
                   <div
                     key={index}
-                    className={`p-4 rounded-lg border ${item.type === "warning"
-                        ? "bg-amber-50 border-amber-200"
-                        : "bg-green-50 border-green-200"
+                    className={`p-4 rounded-2xl border ${item.type === "warning"
+                      ? "bg-amber-50 border-amber-200"
+                      : "bg-green-50 border-green-200"
                       }`}
                   >
                     <h4
                       className={`text-sm font-semibold ${item.type === "warning"
-                          ? "text-amber-800"
-                          : "text-green-800"
+                        ? "text-amber-800"
+                        : "text-green-800"
                         }`}
                     >
                       {item.title}
@@ -402,9 +413,9 @@ function App() {
           </div>
 
           {/* CRM and Operations Integration Table */}
-          <div className="bg-white border border-slate-200 rounded-xl p-5">
+          <div className={`${panel} p-6`}>
             <div className="mb-5">
-              <h3 className="font-semibold text-slate-800">
+              <h3 className="font-semibold text-slate-900">
                 CRM–Operations Account Integration
               </h3>
               <p className="text-sm text-slate-500 mt-1">
@@ -412,16 +423,16 @@ function App() {
               </p>
             </div>
 
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto rounded-2xl bg-white shadow-[0_4px_16px_-8px_rgba(15,23,42,0.15)]">
               <table className="w-full text-sm text-left">
-                <thead className="bg-slate-50 text-slate-600">
+                <thead className="bg-slate-100/80 text-slate-600">
                   <tr>
-                    <th className="px-4 py-3">Account ID</th>
-                    <th className="px-4 py-3">Company</th>
-                    <th className="px-4 py-3">Region</th>
-                    <th className="px-4 py-3">Project</th>
-                    <th className="px-4 py-3">Status</th>
-                    <th className="px-4 py-3">Match</th>
+                    <th className="px-4 py-3 font-medium">Account ID</th>
+                    <th className="px-4 py-3 font-medium">Company</th>
+                    <th className="px-4 py-3 font-medium">Region</th>
+                    <th className="px-4 py-3 font-medium">Project</th>
+                    <th className="px-4 py-3 font-medium">Status</th>
+                    <th className="px-4 py-3 font-medium">Match</th>
                   </tr>
                 </thead>
 
@@ -429,9 +440,9 @@ function App() {
                   {integration.map((item, index) => (
                     <tr
                       key={`${item.account_id}-${index}`}
-                      className="border-b border-slate-100"
+                      className="border-b border-slate-100 last:border-0 hover:bg-slate-50/70"
                     >
-                      <td className="px-4 py-3 font-medium text-slate-700">
+                      <td className="px-4 py-3 font-medium text-slate-800">
                         {item.account_id}
                       </td>
 
@@ -453,9 +464,9 @@ function App() {
 
                       <td className="px-4 py-3">
                         <span
-                          className={`px-2.5 py-1 rounded-full text-xs font-medium ${item.match_status === "Matched"
-                              ? "bg-green-50 text-green-700"
-                              : "bg-amber-50 text-amber-700"
+                          className={`px-3 py-1 rounded-full text-xs font-medium ${item.match_status === "Matched"
+                            ? "bg-green-50 text-green-700"
+                            : "bg-amber-50 text-amber-700"
                             }`}
                         >
                           {item.match_status}
@@ -473,9 +484,9 @@ function App() {
           </div>
 
           {/* Sales Chart */}
-          <div className="bg-white border border-slate-200 rounded-xl p-5">
+          <div className={`${panel} p-6`}>
             <div className="mb-6">
-              <h3 className="font-semibold text-slate-800">
+              <h3 className="font-semibold text-slate-900">
                 Sales Performance by Region
               </h3>
               <p className="text-sm text-slate-500 mt-1">
@@ -486,23 +497,30 @@ function App() {
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={sales}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="region" />
-                  <YAxis />
-                  <Tooltip formatter={(value) => formatCurrency(value)} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                  <XAxis dataKey="region" axisLine={false} tickLine={false} />
+                  <YAxis axisLine={false} tickLine={false} />
+                  <Tooltip
+                    formatter={(value) => formatCurrency(value)}
+                    contentStyle={{
+                      borderRadius: 16,
+                      border: "none",
+                      boxShadow: "0 10px 30px -10px rgba(15,23,42,0.25)",
+                    }}
+                  />
 
                   <Bar
                     dataKey="won_revenue"
                     name="Won Revenue"
-                    fill="#2563eb"
-                    radius={[5, 5, 0, 0]}
+                    fill="#0f172a"
+                    radius={[10, 10, 0, 0]}
                   />
 
                   <Bar
                     dataKey="sales_target"
                     name="Sales Target"
                     fill="#cbd5e1"
-                    radius={[5, 5, 0, 0]}
+                    radius={[10, 10, 0, 0]}
                   />
                 </BarChart>
               </ResponsiveContainer>
@@ -513,8 +531,8 @@ function App() {
           {projects && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
-              <div className="bg-white border border-slate-200 rounded-xl p-5">
-                <h3 className="font-semibold text-slate-800">
+              <div className={`${panel} p-6`}>
+                <h3 className="font-semibold text-slate-900">
                   Project Status
                 </h3>
                 <p className="text-sm text-slate-500 mt-1">
@@ -531,6 +549,8 @@ function App() {
                         cx="50%"
                         cy="50%"
                         outerRadius={90}
+                        stroke="#ffffff"
+                        strokeWidth={3}
                         label
                       >
                         {projects.by_status.map((item, index) => (
@@ -540,14 +560,20 @@ function App() {
                           />
                         ))}
                       </Pie>
-                      <Tooltip />
+                      <Tooltip
+                        contentStyle={{
+                          borderRadius: 16,
+                          border: "none",
+                          boxShadow: "0 10px 30px -10px rgba(15,23,42,0.25)",
+                        }}
+                      />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
               </div>
 
-              <div className="bg-white border border-slate-200 rounded-xl p-5">
-                <h3 className="font-semibold text-slate-800">
+              <div className={`${panel} p-6`}>
+                <h3 className="font-semibold text-slate-900">
                   SLA Performance
                 </h3>
                 <p className="text-sm text-slate-500 mt-1">
@@ -564,6 +590,8 @@ function App() {
                         cx="50%"
                         cy="50%"
                         outerRadius={90}
+                        stroke="#ffffff"
+                        strokeWidth={3}
                         label
                       >
                         {projects.by_sla.map((item, index) => (
@@ -573,7 +601,13 @@ function App() {
                           />
                         ))}
                       </Pie>
-                      <Tooltip />
+                      <Tooltip
+                        contentStyle={{
+                          borderRadius: 16,
+                          border: "none",
+                          boxShadow: "0 10px 30px -10px rgba(15,23,42,0.25)",
+                        }}
+                      />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
