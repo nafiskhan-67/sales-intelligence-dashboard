@@ -1,0 +1,18 @@
+
+month,region,sales_target,segment,campaign
+2026-01,North,200000,Enterprise,Q1 Campaign
+2026-01,South,150000,SMB,Digital Campaign
+2026-02,North,220000,Enterprise,Q1 Campaign
+2026-02,South,180000,SMB,Referral Campaign
+2026-03,East,160000,Mid Market,Digital Campaign
+2026-03,West,140000,SMB,Referral Campaign
+2026-04,North,250000,Enterprise,Q2 Campaign
+2026-04,South,190000,SMB,Digital Campaign
+2026-05,East,180000,Mid Market,Q2 Campaign
+2026-05,West,170000,SMB,Referral Campaign
+2026-06,North,280000,Enterprise,Q2 Campaign
+2026-06,South,200000,SMB,Digital Campaign
+2026-07,North,300000,Enterprise,Q3 Campaign
+2026-07,East,190000,Mid Market,Referral Campaign
+2026-08,South,220000,SMB,Q3 Campaign
+2026-08,West,180000,SMB,Digital Campaign

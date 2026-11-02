@@ -1,0 +1,10 @@
+
+project_id,client_id,account_id,project_name,service_type,status,created_date,due_date,completed_date,amount,assigned_team,sla_status
+PR001,CL001,AC001,Website Development,Development,Completed,2026-01-15,2026-02-15,2026-02-12,85000,Team A,Met
+PR002,CL002,AC002,Ecommerce Platform,Development,In Progress,2026-02-10,2026-03-20,,120000,Team B,At Risk
+PR003,CL003,AC003,CRM Integration,Integration,In Progress,2026-03-12,2026-04-15,,95000,Team A,Breached
+PR004,CL004,AC004,SEO Campaign,Marketing,Completed,2026-04-05,2026-05-05,2026-05-02,65000,Team C,Met
+PR005,CL005,AC005,Mobile Application,Development,On Hold,2026-05-18,2026-06-20,,45000,Team B,Breached
+PR006,CL006,AC006,Cloud Migration,IT Services,In Progress,2026-06-10,2026-07-15,,150000,Team A,At Risk
+PR007,CL007,AC008,Digital Marketing,Marketing,Completed,2025-08-20,2025-09-20,2025-09-18,110000,Team C,Met
+PR008,CL008,AC010,Software Maintenance,Support,In Progress,2026-08-15,2026-09-15,,60000,Team B,At Risk
