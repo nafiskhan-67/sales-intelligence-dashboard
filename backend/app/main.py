@@ -14,7 +14,10 @@ app.include_router(dashboard_router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://sales-intelligence-dashboard-henna.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -29,6 +32,7 @@ def home():
 @app.get("/health")
 def health():
     return {"status": "healthy"}
+
 
 @app.post("/load-data")
 def load_dashboard_data():
